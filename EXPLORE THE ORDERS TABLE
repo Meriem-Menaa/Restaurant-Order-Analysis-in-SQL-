@@ -1,0 +1,29 @@
+-- OBJECTIVE 2 EXPLORE THE ORDERS TABLE  -- 
+
+-- 1. View the order_details table 
+SELECT * from order_details;
+-- 2. What is the date range of the table ? 
+SELECT * from order_details
+order by order_date;
+
+-- min order date 
+SELECT MIN(order_date), MAX(order_date) from order_details;
+-- 3. How many orders were made within this date range ? 
+SELECT COUNT(DISTINCT order_id) FROM order_details;
+
+-- 4. How many orders were ordred within this date range ? 
+select count(*) from order_details;
+
+
+-- 5.Which orders had the most number of items ? 
+
+select order_id , count(item_id) AS num_items
+from order_details
+group by order_id
+order by num_items DESC;
+-- 6.How many orders had more than 12 items ? 
+select count(*) FROM
+(select order_id , count(item_id) AS num_items
+from order_details
+group by order_id
+Having num_items > 12) as num_orders ;
